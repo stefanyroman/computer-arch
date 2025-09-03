@@ -142,9 +142,9 @@ int main() {
     std::cin >> op;
 
     int result;
-    if (op == "ADD") {
+    if (op == "add") {
         result = num1 + num2;
-    } else if (op == "MULTIPLY") {
+    } else if (op == "multiply") {
         result = num1 * num2;
     } else {
         std::cout << "Invalid operation.\n";
