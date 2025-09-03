@@ -138,7 +138,7 @@ int main() {
     std::cout << "Second number converted to first number's base (" << num1Base << "): " << convertedSecond << std::endl;
 
     std::string op;
-    std::cout << "Do you want to ADD or MULTIPLY the numbers? ";
+    std::cout << "Do you want to add or multiply the numbers? ";
     std::cin >> op;
 
     int result;
