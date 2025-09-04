@@ -27,7 +27,7 @@ int hexToDec(std::string hex) {
         } else if (c >= 'a' && c <= 'f') {
             val = c - 'a' + 10;
         } else {
-            std::cout << "Invalid HEX character.\n";
+            std::cout << "Pick a HEX, A-F".\n";
             return -1;
         }
         dec += val * base;
