@@ -77,7 +77,7 @@ int main() {
     std::string inputType, outputType;
     std::string input;
 
-    std::cout << "Enter input type (DEC, BIN, HEX, FLOAT): ";
+    std::cout << "Enter your input (DEC, BIN, HEX, FLOAT): ";
     std::cin >> inputType;
 
     std::cout << "Enter the number: ";
@@ -91,20 +91,20 @@ int main() {
     if (inputType == "FLOAT") {
         float floatVal = std::atof(input.c_str());
         if (outputType == "BIN") {
-            std::cout << "Converted (float to BIN): " << floatToBin(floatVal) << std::endl;
+            std::cout << "Changed (float to BIN): " << floatToBin(floatVal) << std::endl;
         } else {
-            std::cout << "Cannot convert FLOAT to " << outputType << std::endl;
+            std::cout << "Cannot change FLOAT to " << outputType << std::endl;
         }
         decimalValue = int(floatVal);
     } else {
         decimalValue = toDecimal(input, inputType);
 
         if (outputType == "DEC") {
-            std::cout << "Converted to DEC: " << decimalValue << std::endl;
+            std::cout << "Changed to DEC: " << decimalValue << std::endl;
         } else if (outputType == "BIN") {
-            std::cout << "Converted to BIN: " << decToBin(decimalValue) << std::endl;
+            std::cout << "Changed to BIN: " << decToBin(decimalValue) << std::endl;
         } else if (outputType == "HEX") {
-            std::cout << "Converted to HEX: " << decToHex(decimalValue) << std::endl;
+            std::cout << "Changed to HEX: " << decToHex(decimalValue) << std::endl;
         } else {
             std::cout << "Invalid output type.\n";
         }
@@ -147,15 +147,15 @@ int main() {
     } else if (op == "multiply") {
         result = num1 * num2;
     } else {
-        std::cout << "Invalid operation.\n";
+        std::cout << "Invalid answer.\n";
         return 0;
     }
 
-    std::cout << "Result in DEC: " << result << std::endl;
+    std::cout << "DEC form: " << result << std::endl;
     if (num1Base == "BIN") {
-        std::cout << "Result in BIN: " << decToBin(result) << std::endl;
+        std::cout << "BIN form: " << decToBin(result) << std::endl;
     } else if (num1Base == "HEX") {
-        std::cout << "Result in HEX: " << decToHex(result) << std::endl;
+        std::cout << "HEX form: " << decToHex(result) << std::endl;
     }
 
     return 0;
