@@ -2,24 +2,29 @@
 #include <string>
 #include <cmath>
 
+// This function changes a binary number (as a string) into a decimal number
 int binToDec(std::string bin) {
     int dec = 0;
     int power = 0;
+    // Go through each digit from right to left
     for (int i = bin.length() - 1; i >= 0; i--) {
         if (bin[i] == '1') {
-            dec += std::pow(2, power);
+            dec += std::pow(2, power); // Add 2 to the power if digit is 1
         }
         power++;
     }
     return dec;
 }
 
+// This function changes a hexadecimal number (as a string) into a decimal number
 int hexToDec(std::string hex) {
     int dec = 0;
     int base = 1;
+    // Go through each digit from right to left
     for (int i = hex.length() - 1; i >= 0; i--) {
         char c = hex[i];
         int val;
+        // Figure out the value of each hex digit
         if (c >= '0' && c <= '9') {
             val = c - '0';
         } else if (c >= 'A' && c <= 'F') {
@@ -30,15 +35,17 @@ int hexToDec(std::string hex) {
             std::cout << "Pick a HEX, A-F".\n";
             return -1;
         }
-        dec += val * base;
-        base *= 16;
+        dec += val * base; // Add the value times the base
+        base *= 16;        // Move to the next power of 16
     }
     return dec;
 }
 
+// This function changes a decimal number into a binary string
 std::string decToBin(int dec) {
     std::string bin = "";
     if (dec == 0) return "0";
+    // Keep dividing by 2 and adding the remainder to the front
     while (dec > 0) {
         bin = char((dec % 2) + '0') + bin;
         dec /= 2;
@@ -46,10 +53,12 @@ std::string decToBin(int dec) {
     return bin;
 }
 
+// This function changes a decimal number into a hexadecimal string
 std::string decToHex(int dec) {
     std::string hex = "";
     char hexDigits[] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
     if (dec == 0) return "0";
+    // Keep dividing by 16 and adding the remainder as a hex digit
     while (dec > 0) {
         hex = hexDigits[dec % 16] + hex;
         dec /= 16;
@@ -57,37 +66,43 @@ std::string decToHex(int dec) {
     return hex;
 }
 
+// This function changes a float number into binary (just the whole number part)
 std::string floatToBin(float number) {
     int integerPart = int(number);
-    return decToBin(integerPart);
+    return decToBin(integerPart); // Use the same function as decimal to binary
 }
 
+// This function figures out what kind of input it is and converts it to decimal
 int toDecimal(std::string input, std::string inputType) {
     if (inputType == "DEC") {
-        return std::atoi(input.c_str());
+        return std::atoi(input.c_str()); // Already decimal
     } else if (inputType == "BIN") {
-        return binToDec(input);
+        return binToDec(input);          // Convert binary to decimal
     } else if (inputType == "HEX") {
-        return hexToDec(input);
+        return hexToDec(input);          // Convert hex to decimal
     }
-    return -1;
+    return -1; // If input type is not recognized
 }
 
 int main() {
     std::string inputType, outputType;
     std::string input;
 
+    // Ask the user what kind of number they are giving
     std::cout << "Enter your input (DEC, BIN, HEX, FLOAT): ";
     std::cin >> inputType;
 
+    // Ask for the actual number
     std::cout << "Enter the number: ";
     std::cin >> input;
 
+    // Ask what kind of output they want
     std::cout << "Enter output type (DEC, BIN, HEX): ";
     std::cin >> outputType;
 
     int decimalValue;
 
+    // If the input is a float, handle it separately
     if (inputType == "FLOAT") {
         float floatVal = std::atof(input.c_str());
         if (outputType == "BIN") {
@@ -95,10 +110,12 @@ int main() {
         } else {
             std::cout << "Cannot change FLOAT to " << outputType << std::endl;
         }
-        decimalValue = int(floatVal);
+        decimalValue = int(floatVal); // Save the whole number part
     } else {
+        // Convert input to decimal first
         decimalValue = toDecimal(input, inputType);
 
+        // Then convert decimal to the output type
         if (outputType == "DEC") {
             std::cout << "Changed to DEC: " << decimalValue << std::endl;
         } else if (outputType == "BIN") {
@@ -113,19 +130,23 @@ int main() {
     std::cout << "\nBONUS: Base Conversion and Arithmetic\n";
 
     std::string num1Base, num2Base, num1Str, num2Str;
+    // Ask for the base and value of the first number
     std::cout << "Enter base of first number (DEC, BIN, HEX): ";
     std::cin >> num1Base;
     std::cout << "Enter first number: ";
     std::cin >> num1Str;
 
+    // Ask for the base and value of the second number
     std::cout << "Enter base of second number (DEC, BIN, HEX): ";
     std::cin >> num2Base;
     std::cout << "Enter second number: ";
     std::cin >> num2Str;
 
+    // Converted both numbers to decimal
     int num1 = toDecimal(num1Str, num1Base);
     int num2 = toDecimal(num2Str, num2Base);
 
+    // Changes second number to the same base as the first number
     std::string convertedSecond;
     if (num1Base == "DEC") {
         convertedSecond = std::to_string(num2);
@@ -135,13 +156,15 @@ int main() {
         convertedSecond = decToHex(num2);
     }
 
-    std::cout << "Second number converted to first number's base (" << num1Base << "): " << convertedSecond << std::endl;
+    std::cout << "Second number changed to first number's base (" << num1Base << "): " << convertedSecond << std::endl;
 
     std::string op;
+    // Ask if the user wants to add or multiply
     std::cout << "Do you want to add or multiply the numbers? ";
     std::cin >> op;
 
     int result;
+    // Do the math
     if (op == "add") {
         result = num1 + num2;
     } else if (op == "multiply") {
@@ -151,6 +174,7 @@ int main() {
         return 0;
     }
 
+    // Show the result in decimal and also in binary or hex if needed
     std::cout << "DEC form: " << result << std::endl;
     if (num1Base == "BIN") {
         std::cout << "BIN form: " << decToBin(result) << std::endl;
@@ -160,3 +184,4 @@ int main() {
 
     return 0;
 }
+
